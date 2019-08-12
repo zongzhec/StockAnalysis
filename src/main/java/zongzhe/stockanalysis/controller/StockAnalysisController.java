@@ -1,9 +1,8 @@
 package zongzhe.stockanalysis.controller;
 
-import foo.zongzhe.utils.LogUtil;
 import zongzhe.stockanalysis.entity.MarketClosePrice;
 import zongzhe.stockanalysis.helper.StockAnalysisHelper;
-
+import foo.zongzhe.common.utils.*;
 import java.util.List;
 
 public class StockAnalysisController {
@@ -12,8 +11,7 @@ public class StockAnalysisController {
 
 
     public static void main(String args[]) {
-        LogUtil logUtil = new LogUtil();
-        logUtil.info("Link start!");
+        LogUtil.printInfo("Link start!");
 
         // Step 1: Read prices from Excel
         StockAnalysisHelper helper = new StockAnalysisHelper();
