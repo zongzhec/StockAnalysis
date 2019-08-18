@@ -2,3 +2,4 @@
 .idea/*
 .build/**/*.class
 *.class
+build/**/*.class
