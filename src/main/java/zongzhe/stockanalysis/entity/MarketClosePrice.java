@@ -4,6 +4,8 @@ import java.util.List;
 
 public class MarketClosePrice {
 
+    public static final Double[] PRICE_THRESHOLD = {0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7};
+
     private String stockNum;
     private String stockName;
     private List<Double> prices;

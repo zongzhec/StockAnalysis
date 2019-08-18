@@ -1,5 +1,5 @@
 .gradle/*
 .idea/*
-.build/**/*.class
+.build/*
 *.class
-build/**/*.class
+build/*
