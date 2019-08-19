@@ -8,6 +8,7 @@ import zongzhe.stockanalysis.entity.MarketClosePrice;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class StockAnalysisHelper {
@@ -48,15 +49,16 @@ public class StockAnalysisHelper {
         }
     }
 
-    public void calWithThreshold(List<MarketClosePrice> mcpList) {
+    public void calWithThreshold(List<MarketClosePrice> mcpList, HashMap<String, Integer> basePrices) {
         Double[] priceThes = MarketClosePrice.PRICE_THRESHOLD;
         for(MarketClosePrice mcp:mcpList){
-            LogUtil.logInfo(mcp.getStockNum() + ", " + mcp.getStockName());
+            System.out.print(mcp.getStockNum() + "|" + mcp.getStockName() + "|");
             List<Double> priceList = mcp.getPrices();
             for (Double threshold: priceThes){
                 int index = (int) (priceList.size() * threshold);
-                LogUtil.logInfo(threshold + ": " + priceList.get(index));
+                System.out.print(priceList.get(index) + "|");
             }
+            LogUtil.logNextLine();
         }
     }
 }
