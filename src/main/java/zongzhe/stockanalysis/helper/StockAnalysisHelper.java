@@ -6,6 +6,7 @@ import foo.zongzhe.file.utils.ExcelUtil;
 import zongzhe.stockanalysis.entity.MarketClosePrice;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,16 +50,52 @@ public class StockAnalysisHelper {
         }
     }
 
-    public void calWithThreshold(List<MarketClosePrice> mcpList, HashMap<String, Integer> basePrices) {
-        Double[] priceThes = MarketClosePrice.PRICE_THRESHOLD;
-        for(MarketClosePrice mcp:mcpList){
+    public void calWithThreshold(List<MarketClosePrice> mcpList, double[] priceThes) {
+        for (MarketClosePrice mcp : mcpList) {
             System.out.print(mcp.getStockNum() + "|" + mcp.getStockName() + "|");
             List<Double> priceList = mcp.getPrices();
-            for (Double threshold: priceThes){
+            for (Double threshold : priceThes) {
                 int index = (int) (priceList.size() * threshold);
                 System.out.print(priceList.get(index) + "|");
             }
             LogUtil.logNextLine();
         }
+    }
+
+    public double[] getPriceThresholdFromIndex(int[] indexThreshold, List<MarketClosePrice> mcpList) {
+        // Get SH index
+        LogUtil.logInfo("Getting SH Index");
+        MarketClosePrice shStockIndex = new MarketClosePrice();
+        for (MarketClosePrice mcp : mcpList) {
+            if (Integer.valueOf(mcp.getStockNum()) == 1) {
+                shStockIndex = mcp;
+                break;
+            }
+        }
+
+        double[] priceThresholds = new double[indexThreshold.length];
+        int priceThresholdInd = 0;
+
+        List<Double> shStockIndexs = shStockIndex.getPrices();
+        int shStockIndexInd = 0;
+
+        double shIndexSize = (double) shStockIndexs.size();
+        LogUtil.logDebug("SHIndes.size: " + shIndexSize);
+        while (priceThresholdInd < priceThresholds.length) {
+            if (shStockIndexs.get(shStockIndexInd) >= indexThreshold[priceThresholdInd]
+                    && shStockIndexs.get(shStockIndexInd + 1) < indexThreshold[priceThresholdInd]) {
+                LogUtil.logDebug(indexThreshold[priceThresholdInd] + ": " + shStockIndexInd);
+                priceThresholds[priceThresholdInd] = shStockIndexInd * 1.0 / shIndexSize;
+                priceThresholdInd++;
+            }
+            shStockIndexInd++;
+        }
+
+        DecimalFormat df = new DecimalFormat("0.0000");
+        for (double thres : priceThresholds) {
+            LogUtil.logDebug(df.format(thres));
+        }
+
+        return priceThresholds;
     }
 }
