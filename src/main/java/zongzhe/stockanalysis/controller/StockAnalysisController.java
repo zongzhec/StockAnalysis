@@ -30,7 +30,7 @@ public class StockAnalysisController {
         // Step 2: Sort the index values
         helper.sortPrices(mcpList);
         mcp = mcpList.get(0);
-        LogUtil.logInfo(String.format("First index num: %s, name: %s, value: %f", mcp.getStockNum(), mcp.getStockName(), mcp.getPrices().get(0)));
+        LogUtil.logInfo(String.format("Largest index num: %s, name: %s, value: %f", mcp.getStockNum(), mcp.getStockName(), mcp.getPrices().get(0)));
 
         // Step 3: Get threshold and apply calculation
         helper.calWithThreshold(mcpList, confHelper.basePrices);
