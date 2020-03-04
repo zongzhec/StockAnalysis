@@ -51,6 +51,7 @@ public class StockAnalysisHelper {
     }
 
     public void calWithThreshold(List<MarketClosePrice> mcpList, double[] priceThes) {
+        LogUtil.logNextLine();
         for (MarketClosePrice mcp : mcpList) {
             System.out.print(mcp.getStockNum() + "|" + mcp.getStockName() + "|");
             List<Double> priceList = mcp.getPrices();

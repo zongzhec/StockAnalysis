@@ -40,5 +40,8 @@ public class StockAnalysisController {
 
         // Step 4: Get threshold and apply calculation
         helper.calWithThreshold(mcpList, priceThresholds);
+
+        // Step 5: Get threshold from configuration and apply calculation
+        helper.calWithThreshold(mcpList, MarketClosePrice.PRICE_THRESHOLD);
     }
 }
